@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Version STABLE V1.2.1
+=======
+Version STABLE V1.2.1
+>>>>>>> 7bf4ef9a0c75d2c08b6eed579b8923eb2c7dd1fa

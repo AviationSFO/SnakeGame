@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 ~/Desktop/SnakeGame/turtlesnake.py

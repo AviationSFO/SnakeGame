@@ -1,0 +1,23 @@
+V1.0
+Original Release
+
+V1.0.1
+Bug fix for turtle shut down when at 20 score
+
+V1.1
+Maroon bg, score changes by 1, save high score, new packaging
+
+V1.1.1
+New color and shape options for food, manual kill dev tool press "r"
+
+V1.1.2
+Added and removed colors for food, removed "classic" shape for food, changed bg color, added arrow key functionality, small performance optimizations
+
+V1.1.3
+Food sort of snaps to places where snake can go, fixed bug where snake doesn't work with wsad when caps log is on, hot fix for snake game crashing on some computers
+
+V1.1.4
+Changed background color and food colors, various bug fixes
+
+V1.2
+Added ability to configure background and food colors with snakeconfig.py, bug fixes, added SOUNDS!

@@ -21,3 +21,9 @@ Changed background color and food colors, various bug fixes
 
 V1.2
 Added ability to configure background and food colors with snakeconfig.py, bug fixes, added SOUNDS!
+
+V1.2.1
+Packaging changes
+
+V1.2.2
+Can choose shape in configurator

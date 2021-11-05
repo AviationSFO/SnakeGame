@@ -25,7 +25,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.2.1")
+wn.title("Snake Game Project V1.2.2")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -42,7 +42,7 @@ head.direction = "Stop"
 # food in the game
 food = turtle.Turtle()
 colors = colist[1]
-shapes = random.choice(['square', 'triangle', 'circle', 'turtle'])
+shapes = colist[2]
 food.speed(0)
 food.shape(shapes)
 food.color(colors)

@@ -27,3 +27,6 @@ Packaging changes
 
 V1.2.2
 Can choose shape in configurator
+
+V1.2.3
+Optimizations and bug fixes

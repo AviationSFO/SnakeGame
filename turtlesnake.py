@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 11-3-2021. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 11-8-2021. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -25,7 +25,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.2.2")
+wn.title("Snake Game Project V1.2.3")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -96,8 +96,6 @@ def move():
         x = head.xcor()
         head.setx(x+20)
 
-def gostop():
-    head.direction = "Stop"
 def DEVTOOLRESET():
     head.direction = "Stop"
     head.goto(0,0)
@@ -115,7 +113,9 @@ wn.onkeypress(godown, "Down")
 wn.onkeypress(goleft, "Left")
 wn.onkeypress(goright, "Right")
 wn.onkeypress(DEVTOOLRESET, "/")
+wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "r")
+wn.onkeypress(DEVTOOLRESET, "R")
 
 segments = []
 

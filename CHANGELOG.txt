@@ -30,3 +30,6 @@ Can choose shape in configurator
 
 V1.2.3
 Optimizations and bug fixes
+
+V1.2.4
+Preview of 1.3, no new features

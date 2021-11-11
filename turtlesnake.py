@@ -15,6 +15,7 @@ colordoc = open(os.path.expanduser(
 colist = colordoc.read()
 colist = colist.split("\n")
 temp_high_score = highdoc.read()
+
 global high_score
 try:
     high_score = int(temp_high_score)
@@ -99,6 +100,7 @@ def move():
 def DEVTOOLRESET():
     head.direction = "Stop"
     head.goto(0,0)
+
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")

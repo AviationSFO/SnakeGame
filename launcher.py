@@ -10,9 +10,8 @@ wn.setup(width = 600, height = 600)
 wn.bgcolor("white")
 snakegame = open(os.path.expanduser("~/Desktop/SnakeGame/turtlesnake.py"), "r")
 snakegame.seek(0)
-code = snakegame.read
+code = snakegame.read()
 def launch(code):
     exec(code)
 wn.onscreenclick(launch, 1, add=True)
-while True:
-    time.sleep(5)
+launch(code)

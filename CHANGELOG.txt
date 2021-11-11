@@ -33,3 +33,6 @@ Optimizations and bug fixes
 
 V1.2.4
 Preview of 1.3, no new features
+
+V1.2.5
+Minor bug fixes and improvements

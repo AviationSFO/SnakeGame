@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 11-8-2021. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 12-6-2021. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -6,10 +6,10 @@ import random
 import os
 TK_SILENCE_DEPRECATION = 1
 error = False
-delay = 0.1
+delay = 0.05
 score = 0
 highdoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
+    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
 colordoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/colors.txt"), "r")
 colist = colordoc.read()
@@ -26,7 +26,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.2.5")
+wn.title("Snake Game Project V1.3.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -86,16 +86,16 @@ def goright():
 def move():
     if head.direction == "up":
         y = head.ycor()
-        head.sety(y+20)
+        head.sety(y+10)
     if head.direction == "down":
         y = head.ycor()
-        head.sety(y-20)
+        head.sety(y-10)
     if head.direction == "left":
         x = head.xcor()
-        head.setx(x-20)
+        head.setx(x-10)
     if head.direction == "right":
         x = head.xcor()
-        head.setx(x+20)
+        head.setx(x+10)
 
 def DEVTOOLRESET():
     head.direction = "Stop"
@@ -135,7 +135,7 @@ while True:
             segment.goto(1000, 1000)
         segments.clear()
         score = 0
-        delay = 0.1
+        delay = 0.05
         pen.clear()
         pen.write(f"Score : {score} High Score : {high_score} ",
                   align="center", font=("candara", 24, "bold"))
@@ -151,7 +151,6 @@ while True:
         new_segment.color("blue")
         new_segment.penup()
         segments.append(new_segment)
-        delay -= 0.001
         score += 1
         if error == True:
             high_score = score
@@ -159,9 +158,8 @@ while True:
             if score > int(high_score):
                 high_score = score
                 highdoc = open(os.path.expanduser(
-                    "~/Desktop/SnakeGame/highest_score_local.txt"), "w")
+                    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
                 highdoc.write(str(high_score))
-                highdoc.close()
         pen.clear()
         pen.write("Score : {} High Score : {} ".format(
             score, high_score), align="center", font=("candara", 24, "bold"))
@@ -176,10 +174,10 @@ while True:
         segments[0].goto(x, y)
     move()
     for segment in segments:
-        if segment.distance(head) < 20:
+        if segment.distance(head) < 10:
             head.direction = "Up"
             head.goto(0,600)
-            time.sleep(0.1)
+            time.sleep(delay)
             time.sleep(1)
             head.goto(0, 0)
             head.direction = "Stop"
@@ -190,7 +188,7 @@ while True:
             segment.clear()
 
             score = 0
-            delay = 0.1
+            delay = 0.05
             pen.clear()
             pen.write("Score : {} High Score : {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))

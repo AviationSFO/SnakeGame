@@ -6,10 +6,11 @@ import random
 import os
 TK_SILENCE_DEPRECATION = 1
 error = False
-delay = 0.05
+delay = 0.025
+movepertick = 5
 score = 0
 highdoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
+    "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
 colordoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/colors.txt"), "r")
 colist = colordoc.read()
@@ -17,6 +18,7 @@ colist = colist.split("\n")
 temp_high_score = highdoc.read()
 
 global high_score
+high_score = 0
 try:
     high_score = int(temp_high_score)
 except ValueError:
@@ -26,7 +28,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.3.0")
+wn.title("Snake Game Project V1.3.1")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -86,16 +88,16 @@ def goright():
 def move():
     if head.direction == "up":
         y = head.ycor()
-        head.sety(y+10)
+        head.sety(y+movepertick)
     if head.direction == "down":
         y = head.ycor()
-        head.sety(y-10)
+        head.sety(y-movepertick)
     if head.direction == "left":
         x = head.xcor()
-        head.setx(x-10)
+        head.setx(x-movepertick)
     if head.direction == "right":
         x = head.xcor()
-        head.setx(x+10)
+        head.setx(x+movepertick)
 
 def DEVTOOLRESET():
     head.direction = "Stop"
@@ -135,7 +137,7 @@ while True:
             segment.goto(1000, 1000)
         segments.clear()
         score = 0
-        delay = 0.05
+        delay = 0.025
         pen.clear()
         pen.write(f"Score : {score} High Score : {high_score} ",
                   align="center", font=("candara", 24, "bold"))
@@ -143,7 +145,7 @@ while True:
         x = round(random.randint(-270, 270), 24)
         y = round(random.randint(-270, 270), 24)
         food.goto(x, y)
-
+        
         # Adding segment
         new_segment = turtle.Turtle()
         new_segment.speed(0)
@@ -174,7 +176,7 @@ while True:
         segments[0].goto(x, y)
     move()
     for segment in segments:
-        if segment.distance(head) < 10:
+        if segment.distance(head) < movepertick:
             head.direction = "Up"
             head.goto(0,600)
             time.sleep(delay)
@@ -188,7 +190,7 @@ while True:
             segment.clear()
 
             score = 0
-            delay = 0.05
+            delay = 0.025
             pen.clear()
             pen.write("Score : {} High Score : {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))

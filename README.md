@@ -3,7 +3,7 @@ To run game, open terminal and run the command: python3 ~/Desktop/SnakeGame/turt
 To run configurator, open terminal and run the command: python3 ~/Desktop/SnakeGame/snakeconfig.py
 
 To activate the launcher, enter the following code into terminal: chmod 755 ~/Desktop/SnakeGame/SnakeLauncher
-it should become a executable (NOT WINDOWS)
+it should become a unix executable (not windows .exe)
 Please read change log for known bugs
 
 # Intallation script

@@ -39,3 +39,7 @@ Minor bug fixes and improvements
 
 V1.3 
 Finally added smoothness and framerate
+
+V1.3.1
+More framrate and fixed bug where high score is not written properly
+Known bug: Head of snake gets partially covered by segments when appended

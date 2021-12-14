@@ -28,7 +28,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.3.1")
+wn.title("Snake Game Project V1.4.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -51,6 +51,15 @@ food.shape(shapes)
 food.color(colors)
 food.penup()
 food.goto(0, 100)
+
+food2 = turtle.Turtle()
+colors2 = colist[1]
+shapes2 = colist[2]
+food2.speed(0)
+food2.shape(shapes2)
+food2.color(colors2)
+food2.penup()
+food2.goto(0, -200)
 
 pen = turtle.Turtle()
 pen.speed(0)
@@ -145,6 +154,31 @@ while True:
         x = round(random.randint(-270, 270), 24)
         y = round(random.randint(-270, 270), 24)
         food.goto(x, y)
+
+        # Adding segment
+        new_segment = turtle.Turtle()
+        new_segment.speed(0)
+        new_segment.shape("square")
+        new_segment.color("blue")
+        new_segment.penup()
+        segments.append(new_segment)
+        score += 1
+        if error == True:
+            high_score = score
+        else:
+            if score > int(high_score):
+                high_score = score
+                highdoc = open(os.path.expanduser(
+                    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
+                highdoc.write(str(high_score))
+        pen.clear()
+        pen.write("Score : {} High Score : {} ".format(
+            score, high_score), align="center", font=("candara", 24, "bold"))
+
+    if head.distance(food2) < 20:
+        x2 = round(random.randint(-270, 270), 24)
+        y2 = round(random.randint(-270, 270), 24)
+        food2.goto(x2, y2)
         
         # Adding segment
         new_segment = turtle.Turtle()

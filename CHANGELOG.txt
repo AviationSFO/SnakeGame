@@ -46,3 +46,6 @@ Known bug: Head of snake gets partially covered by segments when appended
 
 V1.4.0
 Added second food! This re-writes almost all of food generation. I will make it possible to have the second optional and maybe more later!
+
+V1.4.1
+Packaging changes

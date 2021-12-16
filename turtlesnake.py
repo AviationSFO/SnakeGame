@@ -1,14 +1,19 @@
-# Python Snake Game by Steven Weinstein on 12-6-2021. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 12-16-2021. Version available in version.txt
 # import required modules
 import turtle
 import time
 import random
 import os
+import snakeconfig
 TK_SILENCE_DEPRECATION = 1
 error = False
 delay = 0.025
 movepertick = 5
 score = 0
+APIon = False
+APIdata = [None, None]
+datadoc = open(os.path.expanduser(
+    "~/Desktop/SnakeGame/data.txt"), "a")
 highdoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
 colordoc = open(os.path.expanduser(
@@ -28,7 +33,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.4.1")
+wn.title("Snake Game Project V1.5.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -72,7 +77,6 @@ pen.goto(0, 250)
 pen.write(f"Score : 0  High Score : {high_score}", align="center",
           font=("candara", 24, "bold"))
 
-
 # assigning key directions
 def goup():
     if head.direction != "down":
@@ -112,6 +116,21 @@ def DEVTOOLRESET():
     head.direction = "Stop"
     head.goto(0,0)
 
+def colorconfig():
+    snakeconfig.config()
+
+def APIactivate():
+    global APIon
+    APIon = True
+def APIproc():
+    global dist1
+    dist1 = head.distance(food)
+    global dist2
+    dist2 = head.distance(food2)
+    APIdata[0] = dist1
+    APIdata[1] = dist2
+    datadoc.write(f"({round(APIdata[0])}),({round(APIdata[1])})\n")
+    print(APIdata)
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -129,6 +148,8 @@ wn.onkeypress(DEVTOOLRESET, "/")
 wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "r")
 wn.onkeypress(DEVTOOLRESET, "R")
+wn.onkeypress(APIactivate, "0")
+wn.onkeypress(colorconfig, "9")
 
 segments = []
 
@@ -140,8 +161,6 @@ while True:
         time.sleep(1)
         head.goto(0, 0)
         head.direction = "Stop"
-        colors = random.choice(['red', 'blue', 'green'])
-        shapes = random.choice(['square', 'circle'])
         for segment in segments:
             segment.goto(1000, 1000)
         segments.clear()
@@ -228,6 +247,9 @@ while True:
             pen.clear()
             pen.write("Score : {} High Score : {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))
+
+    if APIon == True:
+        APIproc()
     time.sleep(delay)
 
 wn.mainloop()

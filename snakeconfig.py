@@ -1,4 +1,4 @@
-#Turtle Snake Game color and shape congigurator for 1.2.2 and newer 11-4-2021 By Steven Weinstein
+#Turtle Snake Game color and shape congigurator for 1.5.0 and newer 11-4-2021 By Steven Weinstein
 import os
 def config():
     file = open(os.path.expanduser(

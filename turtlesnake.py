@@ -33,7 +33,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.5.0")
+wn.title("Snake Game Project V1.5.1")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -129,8 +129,7 @@ def APIproc():
     dist2 = head.distance(food2)
     APIdata[0] = dist1
     APIdata[1] = dist2
-    datadoc.write(f"({round(APIdata[0])}),({round(APIdata[1])})\n")
-    print(APIdata)
+    datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)})\n")
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")

@@ -1,1 +1,1 @@
-Version STABLE V1.5.0
+Version STABLE V1.5.1

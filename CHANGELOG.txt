@@ -41,7 +41,7 @@ V1.3
 Finally added smoothness and framerate
 
 V1.3.1
-More framrate and fixed bug where high score is not written properly
+More framerate and fixed bug where high score is not written properly
 Known bug: Head of snake gets partially covered by segments when appended
 
 V1.4.0
@@ -52,3 +52,6 @@ Packaging changes
 
 V1.5.0
 API (data) added
+
+V1.5.1
+More precision added to recorded data

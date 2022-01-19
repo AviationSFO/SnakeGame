@@ -58,3 +58,6 @@ More precision added to recorded data
 
 V1.6.0
 fix bug where snake length doesnt reset when killed with running into self. Second food is now optional.
+
+V1.6.1
+Fix bug where game crashes when api turned on

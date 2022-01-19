@@ -38,7 +38,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.6.0")
+wn.title("Snake Game Project V1.6.1")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -138,9 +138,9 @@ def APIproc():
     if foodnum == 2:
         APIdata[1] = dist2
     if foodnum == 2:
-        datadoc.write(f"({round(APIdata[0], 2)})")
-    else:
         datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)})\n")
+    elif foodnum == 1:
+        datadoc.write(f"({round(APIdata[0], 2)})\n")
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -262,4 +262,5 @@ while True:
         APIproc()
     time.sleep(delay)
 
+# I honeslty have no idea what this line does or why I added it but it seems to break the program if I remove it, so it is here to stay.
 wn.mainloop()

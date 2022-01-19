@@ -5,21 +5,26 @@ import time
 import random
 import os
 import snakeconfig
+# defining important vars
 TK_SILENCE_DEPRECATION = 1
+foodnum = 1
 error = False
 delay = 0.025
 movepertick = 5
 score = 0
 APIon = False
 APIdata = [None, None]
+# opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
 highdoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
 colordoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/colors.txt"), "r")
+    "~/Desktop/SnakeGame/prefs.txt"), "r")
 colist = colordoc.read()
 colist = colist.split("\n")
+if colist[3] == "2":
+    foodnum = 2
 temp_high_score = highdoc.read()
 
 global high_score
@@ -33,7 +38,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.5.1")
+wn.title("Snake Game Project V1.6.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -57,14 +62,15 @@ food.color(colors)
 food.penup()
 food.goto(0, 100)
 
-food2 = turtle.Turtle()
-colors2 = colist[1]
-shapes2 = colist[2]
-food2.speed(0)
-food2.shape(shapes2)
-food2.color(colors2)
-food2.penup()
-food2.goto(0, -200)
+if foodnum == 2:
+    food2 = turtle.Turtle()
+    colors2 = colist[1]
+    shapes2 = colist[2]
+    food2.speed(0)
+    food2.shape(shapes2)
+    food2.color(colors2)
+    food2.penup()
+    food2.goto(0, -200)
 
 pen = turtle.Turtle()
 pen.speed(0)
@@ -125,11 +131,16 @@ def APIactivate():
 def APIproc():
     global dist1
     dist1 = head.distance(food)
-    global dist2
-    dist2 = head.distance(food2)
+    if foodnum == 2:
+        global dist2
+        dist2 = head.distance(food2)
     APIdata[0] = dist1
-    APIdata[1] = dist2
-    datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)})\n")
+    if foodnum == 2:
+        APIdata[1] = dist2
+    if foodnum == 2:
+        datadoc.write(f"({round(APIdata[0], 2)})")
+    else:
+        datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)})\n")
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -192,31 +203,31 @@ while True:
         pen.clear()
         pen.write("Score : {} High Score : {} ".format(
             score, high_score), align="center", font=("candara", 24, "bold"))
-
-    if head.distance(food2) < 20:
-        x2 = round(random.randint(-270, 270), 24)
-        y2 = round(random.randint(-270, 270), 24)
-        food2.goto(x2, y2)
+    if foodnum == 2:
+        if head.distance(food2) < 20:
+            x2 = round(random.randint(-270, 270), 24)
+            y2 = round(random.randint(-270, 270), 24)
+            food2.goto(x2, y2)
         
-        # Adding segment
-        new_segment = turtle.Turtle()
-        new_segment.speed(0)
-        new_segment.shape("square")
-        new_segment.color("blue")
-        new_segment.penup()
-        segments.append(new_segment)
-        score += 1
-        if error == True:
-            high_score = score
-        else:
-            if score > int(high_score):
+            # Adding segment
+            new_segment = turtle.Turtle()
+            new_segment.speed(0)
+            new_segment.shape("square")
+            new_segment.color("blue")
+            new_segment.penup()
+            segments.append(new_segment)
+            score += 1
+            if error == True:
                 high_score = score
-                highdoc = open(os.path.expanduser(
-                    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
+            else:
+                if score > int(high_score):
+                    high_score = score
+                    highdoc = open(os.path.expanduser(
+                        "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
                 highdoc.write(str(high_score))
-        pen.clear()
-        pen.write("Score : {} High Score : {} ".format(
-            score, high_score), align="center", font=("candara", 24, "bold"))
+            pen.clear()
+            pen.write("Score : {} High Score : {} ".format(
+                score, high_score), align="center", font=("candara", 24, "bold"))
     # Checking for head collisions with body segments
     for index in range(len(segments)-1, 0, -1):
         x = segments[index-1].xcor()
@@ -239,7 +250,7 @@ while True:
             shapes = random.choice(['square', 'circle'])
             for segment in segments:
                 segment.goto(1000, 1000)
-            segment.clear()
+            segments = []
 
             score = 0
             delay = 0.025

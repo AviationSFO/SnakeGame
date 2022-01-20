@@ -4,7 +4,9 @@ import turtle
 import time
 import random
 import os
+import time
 import snakeconfig
+import threading as thr
 # defining important vars
 TK_SILENCE_DEPRECATION = 1
 foodnum = 1
@@ -13,7 +15,10 @@ delay = 0.025
 movepertick = 5
 score = 0
 APIon = False
-APIdata = [None, None]
+if foodnum == 2:
+    APIdata = [None, None, None, None]
+elif foodnum == 1:
+    APIdata = [None]
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
@@ -38,7 +43,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.6.1")
+wn.title("Snake Game Project V1.7.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -128,19 +133,26 @@ def colorconfig():
 def APIactivate():
     global APIon
     APIon = True
+
+
 def APIproc():
-    global dist1
     dist1 = head.distance(food)
     if foodnum == 2:
-        global dist2
         dist2 = head.distance(food2)
     APIdata[0] = dist1
     if foodnum == 2:
         APIdata[1] = dist2
+        try:
+            APIdata[2] = (int(APIdata[0]) + int(APIdata[1]))/2
+        except IndexError:
+            APIdata.append((int(APIdata[0]) + int(APIdata[1]))/2)
     if foodnum == 2:
-        datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)})\n")
+        datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)}),({round(APIdata[2], 3)})\n")
     elif foodnum == 1:
         datadoc.write(f"({round(APIdata[0], 2)})\n")
+
+
+
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -259,7 +271,10 @@ while True:
                 score, high_score), align="center", font=("candara", 24, "bold"))
 
     if APIon == True:
-        APIproc()
+        if __name__ == "__main__":
+            # creating thread
+            t1 = thr.Thread(target=APIproc, args=())
+            t1.start()
     time.sleep(delay)
 
 # I honeslty have no idea what this line does or why I added it but it seems to break the program if I remove it, so it is here to stay.

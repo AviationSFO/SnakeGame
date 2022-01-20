@@ -10,6 +10,5 @@ def config():
     shapefd = input("Food shape: circle square triange or turtle: ")
     fdnum = input("Would you like to have 1 or 2 foods: ")
     # writing to text document
-    # file.write(colorbg+"\n"+colorfd+"\n"+shapefd+"\n"+fdnum)
     file.write(f"{colorbg}\n{colorfd}\n{shapefd}\n{fdnum}")
-    print("Succesfuly configured!\nYou will have to restart the game for changes to save.")
+    print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")

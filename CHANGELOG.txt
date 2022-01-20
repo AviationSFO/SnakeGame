@@ -65,3 +65,6 @@ Fix bug where game crashes when api turned on
 V1.7.0 - bug fixes and Data rework
 Fixed 2 minor bugs
 Moved API to a second thread to avoid slowing down the game on older computers
+
+V1.7.1
+Fix data.txt

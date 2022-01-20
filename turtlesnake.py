@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 12-16-2021. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 1-20-2022. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -43,7 +43,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.7.0")
+wn.title("Snake Game Project V1.7.1")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)

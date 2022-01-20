@@ -1,1 +1,1 @@
-dist to food 1, (dist to food 2, average distance to food (if applicable)), time since food eaten
+dist to food 1, (dist to food 2, average distance to food (if applicable))

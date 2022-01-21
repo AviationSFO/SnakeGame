@@ -15,10 +15,6 @@ delay = 0.025
 movepertick = 5
 score = 0
 APIon = False
-if foodnum == 2:
-    APIdata = [None, None, None, None]
-elif foodnum == 1:
-    APIdata = [None]
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
@@ -30,6 +26,11 @@ colist = colordoc.read()
 colist = colist.split("\n")
 if colist[3] == "2":
     foodnum = 2
+
+if foodnum == 2:
+    APIdata = [None, None, None]
+elif foodnum == 1:
+    APIdata = [None]
 temp_high_score = highdoc.read()
 
 global high_score
@@ -43,7 +44,7 @@ except ValueError:
 
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.7.1")
+wn.title("Snake Game Project V1.7.2")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -141,6 +142,7 @@ def APIproc():
         dist2 = head.distance(food2)
     APIdata[0] = dist1
     if foodnum == 2:
+        print(APIdata)
         APIdata[1] = dist2
         try:
             APIdata[2] = (int(APIdata[0]) + int(APIdata[1]))/2

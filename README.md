@@ -5,7 +5,7 @@
 
 version 3.6 or newer, (Python 2 does not work, same as python 3 earlier than 3.6). Tested on 3.8.2 and 3.10.2.
 
-#### OSu
+#### OS
 
 Tested on Mac OS and Windows 10 only.  
 ### Launching Game

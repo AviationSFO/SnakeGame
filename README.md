@@ -5,6 +5,7 @@ Python version 3.6 or newer, (Python 2 does not work, same as python 3 earlier t
 ### Launching Game
 To run game:
 MACOS: Open launcher
+
 Windows: Open the turtlesnake.py
 
 ### Configuring prefrences:

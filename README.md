@@ -1,9 +1,10 @@
 # Snake Game using Turlte in Python
 ## Instructions
-### Launching Game:
+### Requirements
+Python version 3.6 or newer, (Python 2 does not work, same as python 3 earlier than 3.6). Tested on Mac OS and Windows 10 only. 
+### Launching Game
 To run game:
 MACOS: Open launcher
-
 Windows: Open the turtlesnake.py
 
 ### Configuring prefrences:

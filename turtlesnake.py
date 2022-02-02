@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 1-20-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 2-2-2022. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -22,6 +22,8 @@ highdoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
 colordoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/prefs.txt"), "r")
+snakedoc = open(os.path.expanduser(
+    "~/Desktop/SnakeGame/snakeprefs.txt"), "r")
 colist = colordoc.read()
 colist = colist.split("\n")
 if colist[3] == "2":
@@ -42,9 +44,13 @@ except ValueError:
     error = True
     print("Error: highest_score_local.txt is not an integer")
 
+snakeprefs = snakedoc.read()
+snakeprefs = snakeprefs.split("\n")
+headcolor = snakeprefs[0]
+tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.7.2")
+wn.title("Snake Game Project V1.8.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -53,7 +59,8 @@ wn.tracer(0)
 # head of the snake
 head = turtle.Turtle()
 head.shape("square")
-head.color("white")
+#head.color("white")
+head.color(headcolor)
 head.penup()
 head.goto(0, 0)
 head.direction = "Stop"
@@ -131,6 +138,9 @@ def DEVTOOLRESET():
 def colorconfig():
     snakeconfig.config()
 
+def snakerecolor():
+    snakeconfig.snakecolor()
+
 def APIactivate():
     global APIon
     APIon = True
@@ -174,6 +184,7 @@ wn.onkeypress(DEVTOOLRESET, "r")
 wn.onkeypress(DEVTOOLRESET, "R")
 wn.onkeypress(APIactivate, "0")
 wn.onkeypress(colorconfig, "9")
+wn.onkeypress(snakerecolor, "8")
 
 segments = []
 
@@ -202,7 +213,8 @@ while True:
         new_segment = turtle.Turtle()
         new_segment.speed(0)
         new_segment.shape("square")
-        new_segment.color("blue")
+        #new_segment.color("blue")
+        new_segment.color(tailcolor)
         new_segment.penup()
         segments.append(new_segment)
         score += 1
@@ -227,7 +239,8 @@ while True:
             new_segment = turtle.Turtle()
             new_segment.speed(0)
             new_segment.shape("square")
-            new_segment.color("blue")
+            #new_segment.color("blue")
+            new_segment.color(tailcolor)
             new_segment.penup()
             segments.append(new_segment)
             score += 1

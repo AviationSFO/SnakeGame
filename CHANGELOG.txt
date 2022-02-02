@@ -71,3 +71,6 @@ Fix data.txt
 
 V1.7.2
 Fix bug where API not working because it does not recognize 2 foods option
+
+V1.8.0
+Add option to recolor/customize the snake head and tail. Press 8 to open the configurator!

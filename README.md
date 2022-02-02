@@ -1,11 +1,11 @@
 # Snake Game using Turlte in Python
 ## Instructions
 ### Requirements
-#### Python: 
+#### Python
 
 version 3.6 or newer, (Python 2 does not work, same as python 3 earlier than 3.6). Tested on 3.8.2 and 3.10.2.
 
-#### OS:
+#### OSu
 
 Tested on Mac OS and Windows 10 only.  
 ### Launching Game
@@ -14,7 +14,7 @@ MACOS: Open launcher
 
 Windows: Open the turtlesnake.py
 
-### Configuring prefrences:
+### Configuring prefrences
 
 To run configurator, you will need to open the game and press "9", it will come up in the shell for configuration.
 To configure the snake, press "8", it will come up in the shell for configuration.

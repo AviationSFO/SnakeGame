@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 2-2-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 2-3-2022. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -50,7 +50,7 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.8.0")
+wn.title("Snake Game Project V1.8r2")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -60,7 +60,11 @@ wn.tracer(0)
 head = turtle.Turtle()
 head.shape("square")
 #head.color("white")
-head.color(headcolor)
+try:
+    head.color(headcolor)
+except:
+    snakeconfig.snakereset()
+    quit()
 head.penup()
 head.goto(0, 0)
 head.direction = "Stop"
@@ -213,8 +217,11 @@ while True:
         new_segment = turtle.Turtle()
         new_segment.speed(0)
         new_segment.shape("square")
-        #new_segment.color("blue")
-        new_segment.color(tailcolor)
+        try:
+            new_segment.color(tailcolor)
+        except:
+            snakeconfig.snakereset()
+            quit()
         new_segment.penup()
         segments.append(new_segment)
         score += 1
@@ -239,8 +246,11 @@ while True:
             new_segment = turtle.Turtle()
             new_segment.speed(0)
             new_segment.shape("square")
-            #new_segment.color("blue")
-            new_segment.color(tailcolor)
+            try:
+                new_segment.color(tailcolor)
+            except:
+                snakeconfig.snakereset()
+                quit()
             new_segment.penup()
             segments.append(new_segment)
             score += 1

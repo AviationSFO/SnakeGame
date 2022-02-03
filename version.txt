@@ -1,1 +1,1 @@
-Version STABLE V1.8.0
+Version STABLE V1.8r2

@@ -1,4 +1,4 @@
-#Turtle Snake Game color and shape congigurator for 1.8.0 and newer 2-2-2021 By Steven Weinstein
+#Turtle Snake Game color and shape congigurator for 1.8r2 and newer 2-2-2021 By Steven Weinstein
 def config():
     import os
     file = open(os.path.expanduser(
@@ -23,3 +23,12 @@ def snakecolor():
   colortl = input("Enter the color you would like the tail color to be: ")
   file.write(f"{colorhd}\n{colortl}")
   print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
+
+def snakereset():
+  import os
+  print("\n\n\tvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\nThere was an error in the snake color file.\nReseting the document...\n\t^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n")
+  file = open(os.path.expanduser(
+        "~/Desktop/SnakeGame/snakeprefs.txt"), "w")
+  colorhd = "white"
+  colortl = "blue"
+  file.write(f"{colorhd}\n{colortl}")

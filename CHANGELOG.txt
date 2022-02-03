@@ -74,3 +74,6 @@ Fix bug where API not working because it does not recognize 2 foods option
 
 V1.8.0
 Add option to recolor/customize the snake head and tail. Press 8 to open the configurator!
+
+V1.8r2
+If error in snakeprefs.txt, will now reset to default values.

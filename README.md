@@ -1,4 +1,4 @@
-# Snake Game using Turlte in Python
+# Snake Game using Turtle in Python
 ## Instructions
 ### Requirements
 #### Python

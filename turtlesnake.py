@@ -60,7 +60,7 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.9.0")
+wn.title("Snake Game Project V1.9.1")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -182,13 +182,15 @@ def playswallow():
         playsound("Desktop/SnakeGame/extrafiles/swallow.mp3")
 
 def togglemute():
-    if colist[4] == "mute:true":
+    global mutesound
+    if mutesound == True:
         colist[4] == "mute:false"
-        global mutesound
         mutesound = False
-    if colist[4] == "mute:false":
+        return
+    elif mutesound == False:
         colist[4] == "mute:true"
         mutesound = True
+        return
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")

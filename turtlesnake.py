@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 2-3-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 2-4-2022. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -36,7 +36,7 @@ if colist[3] == "2":
     foodnum = 2
 if colist[4] == "mute:true":
     mutesound = True
-else:
+elif colist[4] == "mute:false":
     mutesound = False
 
 if foodnum == 2:
@@ -60,7 +60,7 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.9.1")
+wn.title("Snake Game Project V1.9.2")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -184,13 +184,38 @@ def playswallow():
 def togglemute():
     global mutesound
     if mutesound == True:
-        colist[4] == "mute:false"
+        colist[4] = "mute:false"
         mutesound = False
+        colordoc = open(os.path.expanduser(
+            "~/Desktop/SnakeGame/prefs.txt"), "w")
+        conts = ""
+        for count in range (0,5):
+            if count != 5:
+                conts =conts + colist[count] + "\n"
+            else:
+                conts = conts + "mute:false"
+        colordoc.write(conts)
+        colordoc.close()
+        colordoc = open(os.path.expanduser(
+            "~/Desktop/SnakeGame/prefs.txt"), "r")
         return
     elif mutesound == False:
-        colist[4] == "mute:true"
+        colist[4] = "mute:true"
         mutesound = True
+        colordoc = open(os.path.expanduser(
+            "~/Desktop/SnakeGame/prefs.txt"), "w")
+        conts = ""
+        for count in range (0,5):
+            if count != 5:
+                conts = conts + colist[count] + "\n"
+            else:
+                conts = conts + "mute:true"
+        colordoc.write(conts)
+        colordoc.close()
+        colordoc = open(os.path.expanduser(
+            "~/Desktop/SnakeGame/prefs.txt"), "r")
         return
+
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")

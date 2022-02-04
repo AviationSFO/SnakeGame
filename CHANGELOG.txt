@@ -83,3 +83,6 @@ Added/implemented sounds and ability to mute
 
 V1.9.1
 Fixed toggling mute
+
+V1.9.2
+Last muted or not is now saved

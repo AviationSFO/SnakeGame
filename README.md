@@ -28,6 +28,3 @@ Copy and paste the following code into terminal to install
 ```shell
 curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/install.sh | bash
 ```
-
-# Versioning System
-Used after version 1.8, SnakeGame now uses a versioning system of releases and revisions. For example, the first revision of v1.8 is v1.8r1, but for the first, we leave out the initial release of a version. The second revision would be v1.8r2. This will be used because using traditional numberings just does not make sense to me for this project. Aditionally, new revisions are made only when there are changes to acctual code, rather than just this README file for example.

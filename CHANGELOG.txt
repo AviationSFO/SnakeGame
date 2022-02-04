@@ -77,3 +77,6 @@ Add option to recolor/customize the snake head and tail. Press 8 to open the con
 
 V1.8r2
 If error in snakeprefs.txt, will now reset to default values.
+
+V1.9
+Added/implemented sounds and ability to mute

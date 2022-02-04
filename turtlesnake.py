@@ -7,6 +7,11 @@ import os
 import time
 import snakeconfig
 import threading as thr
+try:
+    from playsound import playsound
+    noplaysound = False
+except:
+    noplaysound = True
 # defining important vars
 TK_SILENCE_DEPRECATION = 1
 foodnum = 1
@@ -15,6 +20,7 @@ delay = 0.025
 movepertick = 5
 score = 0
 APIon = False
+global mutesound
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
@@ -28,6 +34,10 @@ colist = colordoc.read()
 colist = colist.split("\n")
 if colist[3] == "2":
     foodnum = 2
+if colist[4] == "mute:true":
+    mutesound = True
+else:
+    mutesound = False
 
 if foodnum == 2:
     APIdata = [None, None, None]
@@ -50,7 +60,7 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.8r2")
+wn.title("Snake Game Project V1.9.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -167,8 +177,18 @@ def APIproc():
     elif foodnum == 1:
         datadoc.write(f"({round(APIdata[0], 2)})\n")
 
+def playswallow():
+    if noplaysound == False:
+        playsound("Desktop/SnakeGame/extrafiles/swallow.mp3")
 
-
+def togglemute():
+    if colist[4] == "mute:true":
+        colist[4] == "mute:false"
+        global mutesound
+        mutesound = False
+    if colist[4] == "mute:false":
+        colist[4] == "mute:true"
+        mutesound = True
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -189,6 +209,7 @@ wn.onkeypress(DEVTOOLRESET, "R")
 wn.onkeypress(APIactivate, "0")
 wn.onkeypress(colorconfig, "9")
 wn.onkeypress(snakerecolor, "8")
+wn.onkeypress(togglemute, "m" or "M")
 
 segments = []
 
@@ -211,6 +232,11 @@ while True:
     if head.distance(food) < 20:
         x = round(random.randint(-270, 270), 24)
         y = round(random.randint(-270, 270), 24)
+        if mutesound == False:
+            if __name__ == '__main__':
+                # creating thread
+                soundt = thr.Thread(target=playswallow, args=())
+                soundt.start()
         food.goto(x, y)
 
         # Adding segment
@@ -240,6 +266,11 @@ while True:
         if head.distance(food2) < 20:
             x2 = round(random.randint(-270, 270), 24)
             y2 = round(random.randint(-270, 270), 24)
+            if mutesound == False:
+                if __name__ == '__main__':
+                    # creating thread
+                    soundt = thr.Thread(target=playswallow, args=())
+                    soundt.start()
             food2.goto(x2, y2)
         
             # Adding segment

@@ -7,11 +7,18 @@ import os
 import time
 import snakeconfig
 import threading as thr
+import json
 try:
     from playsound import playsound
     noplaysound = False
 except:
     noplaysound = True
+global high_score
+with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
+        prefs = json.load(read_file)
+        high_score = prefs["highscore"]
+
 # defining important vars
 TK_SILENCE_DEPRECATION = 1
 foodnum = 1
@@ -24,8 +31,8 @@ global mutesound
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
-highdoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
+#highdoc = open(os.path.expanduser(
+#    "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
 colordoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/prefs.txt"), "r")
 snakedoc = open(os.path.expanduser(
@@ -43,16 +50,13 @@ if foodnum == 2:
     APIdata = [None, None, None]
 elif foodnum == 1:
     APIdata = [None]
-temp_high_score = highdoc.read()
 
-global high_score
-high_score = 0
 try:
-    high_score = int(temp_high_score)
+    high_score = int(high_score)
 except ValueError:
     high_score = 0
     error = True
-    print("Error: highest_score_local.txt is not an integer")
+    print("Error: highscore is not an integer.")
 
 snakeprefs = snakedoc.read()
 snakeprefs = snakeprefs.split("\n")
@@ -60,7 +64,7 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project V1.9.2")
+wn.title("Snake Game Project v1.10.0")
 wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -148,6 +152,14 @@ def move():
 def DEVTOOLRESET():
     head.direction = "Stop"
     head.goto(0,0)
+    high_score = 0
+    prefs = {
+        "highscore": 0,
+    }
+    with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        json.dump(prefs, write_file)
+    quit()
 
 def colorconfig():
     snakeconfig.config()
@@ -230,16 +242,17 @@ wn.onkeypress(godown, "Down")
 wn.onkeypress(goleft, "Left")
 wn.onkeypress(goright, "Right")
 wn.onkeypress(DEVTOOLRESET, "/")
-wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "r")
+wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "R")
 wn.onkeypress(APIactivate, "0")
 wn.onkeypress(colorconfig, "9")
 wn.onkeypress(snakerecolor, "8")
-wn.onkeypress(togglemute, "m" or "M")
+wn.onkeypress(togglemute, "m")
+wn.onkeypress(togglemute, "M")
 
 segments = []
-
+prefs = {}
 
 # Main Gameplay
 while True:
@@ -283,9 +296,9 @@ while True:
         else:
             if score > int(high_score):
                 high_score = score
-                highdoc = open(os.path.expanduser(
-                    "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
-                highdoc.write(str(high_score))
+                # highdoc = open(os.path.expanduser(
+                #     "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
+                # highdoc.write(str(high_score))
         pen.clear()
         pen.write("Score : {} High Score : {} ".format(
             score, high_score), align="center", font=("candara", 24, "bold"))
@@ -317,9 +330,9 @@ while True:
             else:
                 if score > int(high_score):
                     high_score = score
-                    highdoc = open(os.path.expanduser(
-                        "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
-                highdoc.write(str(high_score))
+                #     highdoc = open(os.path.expanduser(
+                #         "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
+                # highdoc.write(str(high_score))
             pen.clear()
             pen.write("Score : {} High Score : {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))
@@ -358,6 +371,13 @@ while True:
             # creating thread
             t1 = thr.Thread(target=APIproc, args=())
             t1.start()
+    prefs = {
+        "highscore": high_score,
+    }
+    with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        json.dump(prefs, write_file)
+
     time.sleep(delay)
 
 # I honeslty have no idea what this line does or why I added it but it seems to break the program if I remove it, so it is here to stay.

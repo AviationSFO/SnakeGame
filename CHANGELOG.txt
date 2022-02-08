@@ -89,3 +89,6 @@ Last muted or not is now saved
 
 V1.10.0
 Implemented json saving for the high score. Background and other options are coming to json swell in the near future (hopefully).
+
+V1.10.1
+Added more things to prefs.json

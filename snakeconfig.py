@@ -1,16 +1,26 @@
-#Turtle Snake Game color and shape congigurator for 1.8r2 and newer 2-2-2021 By Steven Weinstein
+#Turtle Snake Game color and shape congigurator for 1.10.1 and newer on 2-8-2022 By Steven Weinstein
 def config():
     import os
-    file = open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.txt"), "w")
+    import json
+    prefs = {
+    "highscore": 0,
+    "bgcolor": "dark green",
+    "foodcolor": "navy",
+    "foodshape": "square",
+    "foodnum": 2,
+    "mutesound": True
+}
     print('''Color Configurator
       enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
-    colorbg = input("What color would you like the background: ")
-    colorfd = input("What color would you like the food: ")
-    shapefd = input("Food shape: circle square triange or turtle: ")
-    fdnum = input("Would you like to have 1 or 2 foods: ")
+    prefs["bgcolor"] = input("What color would you like the background: ")
+    prefs["foodcolor"] = input("What color would you like the food: ")
+    prefs["foodshape"] = input("Food shape: circle square triange or turtle: ")
+    prefs["foodnum"] = input("Would you like to have 1 or 2 foods: ")
+    with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        json.dump(prefs, write_file)
     # writing to text document
-    file.write(f"{colorbg}\n{colorfd}\n{shapefd}\n{fdnum}")
+    # file.write(f"{colorbg}\n{colorfd}\n{shapefd}\n{fdnum}")
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
 
 def snakecolor():

@@ -8,43 +8,54 @@ import time
 import snakeconfig
 import threading as thr
 import json
+foodnum = 1
+global changedcolor
+changedcolor = False
+prefs = {
+    "highscore": 0,
+    "bgcolor": "dark green",
+    "foodcolor": "navy",
+    "foodshape": "square",
+    "foodnum": 2,
+    "mutesound": True
+}
 try:
     from playsound import playsound
     noplaysound = False
 except:
     noplaysound = True
 global high_score
+global mutesound
 with open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
-        prefs = json.load(read_file)
-        high_score = prefs["highscore"]
-
+    "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
+    prefs = json.load(read_file)
+    high_score = prefs["highscore"]
+    bgcolor = prefs["bgcolor"]
+    foodcolor = prefs["foodcolor"]
+    foodshape = prefs["foodshape"]
+    foodnum = prefs["foodnum"]
+    mutesound = prefs["mutesound"]
 # defining important vars
 TK_SILENCE_DEPRECATION = 1
-foodnum = 1
 error = False
 delay = 0.025
 movepertick = 5
 score = 0
 APIon = False
-global mutesound
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
-#highdoc = open(os.path.expanduser(
-#    "~/Desktop/SnakeGame/highest_score_local.txt"), "r+")
-colordoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/prefs.txt"), "r")
+# colordoc = open(os.path.expanduser(
+#     "~/Desktop/SnakeGame/prefs.txt"), "r")
 snakedoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/snakeprefs.txt"), "r")
-colist = colordoc.read()
-colist = colist.split("\n")
-if colist[3] == "2":
-    foodnum = 2
-if colist[4] == "mute:true":
-    mutesound = True
-elif colist[4] == "mute:false":
-    mutesound = False
+#colist = colordoc.read()
+#colist = colist.split("\n")
+foodnum = int(foodnum)
+# if colist[4] == "mute:true":
+#     mutesound = True
+# elif colist[4] == "mute:false":
+#     mutesound = False
 
 if foodnum == 2:
     APIdata = [None, None, None]
@@ -56,7 +67,7 @@ try:
 except ValueError:
     high_score = 0
     error = True
-    print("Error: highscore is not an integer.")
+    print("Error: last highscore is not an integer.")
 
 snakeprefs = snakedoc.read()
 snakeprefs = snakeprefs.split("\n")
@@ -64,8 +75,9 @@ headcolor = snakeprefs[0]
 tailcolor = snakeprefs[1]
 # Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.10.0")
-wn.bgcolor(colist[0])
+wn.title("Snake Game Project v1.10.1")
+wn.bgcolor(bgcolor)
+#wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
 wn.tracer(0)
@@ -85,8 +97,9 @@ head.direction = "Stop"
 
 # food in the game
 food = turtle.Turtle()
-colors = colist[1]
-shapes = colist[2]
+#colors = colist[1]
+colors = foodcolor
+shapes = foodshape
 food.speed(0)
 food.shape(shapes)
 food.color(colors)
@@ -95,8 +108,8 @@ food.goto(0, 100)
 
 if foodnum == 2:
     food2 = turtle.Turtle()
-    colors2 = colist[1]
-    shapes2 = colist[2]
+    colors2 = foodcolor
+    shapes2 = foodshape
     food2.speed(0)
     food2.shape(shapes2)
     food2.color(colors2)
@@ -196,37 +209,37 @@ def playswallow():
 def togglemute():
     global mutesound
     if mutesound == True:
-        colist[4] = "mute:false"
         mutesound = False
-        colordoc = open(os.path.expanduser(
-            "~/Desktop/SnakeGame/prefs.txt"), "w")
-        conts = ""
-        for count in range (0,5):
-            if count != 5:
-                conts =conts + colist[count] + "\n"
-            else:
-                conts = conts + "mute:false"
-        colordoc.write(conts)
-        colordoc.close()
-        colordoc = open(os.path.expanduser(
-            "~/Desktop/SnakeGame/prefs.txt"), "r")
-        return
     elif mutesound == False:
-        colist[4] = "mute:true"
         mutesound = True
-        colordoc = open(os.path.expanduser(
-            "~/Desktop/SnakeGame/prefs.txt"), "w")
-        conts = ""
-        for count in range (0,5):
-            if count != 5:
-                conts = conts + colist[count] + "\n"
-            else:
-                conts = conts + "mute:true"
-        colordoc.write(conts)
-        colordoc.close()
-        colordoc = open(os.path.expanduser(
-            "~/Desktop/SnakeGame/prefs.txt"), "r")
-        return
+
+def config():
+    import os
+    import json
+    prefs = {
+    "highscore": 0,
+    "bgcolor": "dark green",
+    "foodcolor": "navy",
+    "foodshape": "square",
+    "foodnum": 2,
+    "mutesound": True
+}
+    print('''Color Configurator
+      enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
+    prefs["bgcolor"] = input("What color would you like the background: ")
+    prefs["foodcolor"] = input("What color would you like the food: ")
+    prefs["foodshape"] = input("Food shape: circle square triange or turtle: ")
+    prefs["foodnum"] = input("Would you like to have 1 or 2 foods: ")
+    with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        json.dump(prefs, write_file)
+    # writing to text document
+    # file.write(f"{colorbg}\n{colorfd}\n{shapefd}\n{fdnum}")
+    print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
+    global changedcolor
+    changedcolor = True
+    return
+
 
 wn.listen()
 wn.onkeypress(goup, "w")
@@ -246,7 +259,7 @@ wn.onkeypress(DEVTOOLRESET, "r")
 wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "R")
 wn.onkeypress(APIactivate, "0")
-wn.onkeypress(colorconfig, "9")
+wn.onkeypress(config, "9")
 wn.onkeypress(snakerecolor, "8")
 wn.onkeypress(togglemute, "m")
 wn.onkeypress(togglemute, "M")
@@ -373,10 +386,18 @@ while True:
             t1.start()
     prefs = {
         "highscore": high_score,
-    }
-    with open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
-        json.dump(prefs, write_file)
+        "bgcolor": bgcolor,
+        "foodcolor": foodcolor,
+        "foodshape": foodshape,
+        "foodnum": foodnum,
+        "mutesound": mutesound
+}
+    if changedcolor == False:
+        with open(os.path.expanduser(
+            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+            json.dump(prefs, write_file)
+    else:
+        quit()
 
     time.sleep(delay)
 

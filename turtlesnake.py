@@ -17,7 +17,9 @@ prefs = {
     "foodcolor": "navy",
     "foodshape": "square",
     "foodnum": 2,
-    "mutesound": True
+    "mutesound": True,
+    "headcolor": "white",
+    "tailcolor": "blue"
 }
 try:
     from playsound import playsound
@@ -35,6 +37,8 @@ with open(os.path.expanduser(
     foodshape = prefs["foodshape"]
     foodnum = prefs["foodnum"]
     mutesound = prefs["mutesound"]
+    tailcolor = prefs["tailcolor"]
+    headcolor = prefs["headcolor"]
 # defining important vars
 TK_SILENCE_DEPRECATION = 1
 error = False
@@ -45,17 +49,7 @@ APIon = False
 # opening files
 datadoc = open(os.path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
-# colordoc = open(os.path.expanduser(
-#     "~/Desktop/SnakeGame/prefs.txt"), "r")
-snakedoc = open(os.path.expanduser(
-    "~/Desktop/SnakeGame/snakeprefs.txt"), "r")
-#colist = colordoc.read()
-#colist = colist.split("\n")
 foodnum = int(foodnum)
-# if colist[4] == "mute:true":
-#     mutesound = True
-# elif colist[4] == "mute:false":
-#     mutesound = False
 
 if foodnum == 2:
     APIdata = [None, None, None]
@@ -69,15 +63,9 @@ except ValueError:
     error = True
     print("Error: last highscore is not an integer.")
 
-snakeprefs = snakedoc.read()
-snakeprefs = snakeprefs.split("\n")
-headcolor = snakeprefs[0]
-tailcolor = snakeprefs[1]
-# Creating a window screen
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.10.1")
+wn.title("Snake Game Project v1.10.2")
 wn.bgcolor(bgcolor)
-#wn.bgcolor(colist[0])
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
 wn.tracer(0)
@@ -85,7 +73,6 @@ wn.tracer(0)
 # head of the snake
 head = turtle.Turtle()
 head.shape("square")
-#head.color("white")
 try:
     head.color(headcolor)
 except:
@@ -234,12 +221,34 @@ def config():
         "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     # writing to text document
-    # file.write(f"{colorbg}\n{colorfd}\n{shapefd}\n{fdnum}")
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
     global changedcolor
     changedcolor = True
     return
 
+def snakecolor():
+    import os
+    import json
+    prefs = {
+    "highscore": 0,
+    "bgcolor": "dark green",
+    "foodcolor": "navy",
+    "foodshape": "square",
+    "foodnum": 2,
+    "mutesound": True
+    }
+    print('''Color Configurator
+      enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
+    prefs["headcolor"] = input("What color would you like the snake head: ")
+    prefs["tailcolor"] = input("What color would you like the snake tail: ")
+    with open(os.path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        json.dump(prefs, write_file)
+    # writing to text document
+    print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
+    global changedcolor
+    changedcolor = True
+    return
 
 wn.listen()
 wn.onkeypress(goup, "w")
@@ -260,7 +269,7 @@ wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "R")
 wn.onkeypress(APIactivate, "0")
 wn.onkeypress(config, "9")
-wn.onkeypress(snakerecolor, "8")
+wn.onkeypress(snakecolor, "8")
 wn.onkeypress(togglemute, "m")
 wn.onkeypress(togglemute, "M")
 
@@ -309,9 +318,6 @@ while True:
         else:
             if score > int(high_score):
                 high_score = score
-                # highdoc = open(os.path.expanduser(
-                #     "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
-                # highdoc.write(str(high_score))
         pen.clear()
         pen.write("Score : {} High Score : {} ".format(
             score, high_score), align="center", font=("candara", 24, "bold"))
@@ -343,9 +349,6 @@ while True:
             else:
                 if score > int(high_score):
                     high_score = score
-                #     highdoc = open(os.path.expanduser(
-                #         "~/Desktop/SnakeGame/highest_score_local.txt"), "w+")
-                # highdoc.write(str(high_score))
             pen.clear()
             pen.write("Score : {} High Score : {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))
@@ -390,7 +393,9 @@ while True:
         "foodcolor": foodcolor,
         "foodshape": foodshape,
         "foodnum": foodnum,
-        "mutesound": mutesound
+        "mutesound": mutesound,
+        "headcolor": headcolor,
+        "tailcolor": tailcolor
 }
     if changedcolor == False:
         with open(os.path.expanduser(

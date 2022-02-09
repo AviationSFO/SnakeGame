@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 2-4-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 2-8-2022. Version available in version.txt
 # import required modules
 import turtle
 import time
@@ -11,6 +11,7 @@ import json
 foodnum = 1
 global changedcolor
 changedcolor = False
+# default options:
 prefs = {
     "highscore": 0,
     "bgcolor": "dark green",

@@ -95,3 +95,6 @@ Added more things to prefs.json, modified configuartor
 
 V1.10.2
 Added snake preferences to prefs.json and modified configurator
+
+V1.10.3
+Cleaned up some things and added wininstall.sh

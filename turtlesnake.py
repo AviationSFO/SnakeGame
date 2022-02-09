@@ -1,5 +1,6 @@
 # Python Snake Game by Steven Weinstein on 2-8-2022. Version available in version.txt
 # import required modules
+print("Your python version is:")
 import turtle
 import time
 import random
@@ -8,6 +9,7 @@ import time
 import snakeconfig
 import threading as thr
 import json
+os.system("python3 --version")
 foodnum = 1
 global changedcolor
 changedcolor = False

@@ -1,18 +1,18 @@
-# Snake Game using Turtle in Python
+# Snake Game
 ## Instructions
 ### Requirements
 #### Python
 
-Version 3.6 or newer, (Python 2 does not work, same as python 3 earlier than 3.6). Tested on 3.8.2 and 3.10.2.
+Version 3.6 or newer, (Python 2 does not work, same as python 3 earlier than 3.6). Tested on 3.8.2, 3.9.10 (development version), and 3.10.2.
 
 #### OS
 
-Tested on Mac OS and Windows 10 only.  
+Tested on Mac OS and Windows 10 only.
 ### Launching Game
 To run game:
 MACOS: Open launcher
 
-Windows: Open the turtlesnake.py
+Windows: Open turtlesnake.py with python
 
 ### Configuring prefrences
 
@@ -27,6 +27,7 @@ it should become a unix executable (not windows .exe)
 Please read change log for known bugs.
 
 # Installation
+## Mac OS
 Copy and paste the following code into terminal to install
 ```shell
 curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/install.sh | bash

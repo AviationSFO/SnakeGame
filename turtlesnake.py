@@ -9,7 +9,15 @@ import time
 import snakeconfig
 import threading as thr
 import json
-os.system("python3 --version")
+import platform as pf
+print(pf.python_version()); pyversion = pf.python_version();
+if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion:
+    print("Python version check pass")
+else:
+    print("^"*20)
+    print("Please upgrade your python to be version 3.6 or newer, terminating process")
+    print("v"*20)
+    quit()
 foodnum = 1
 global changedcolor
 changedcolor = False

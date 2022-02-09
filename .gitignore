@@ -1,3 +1,5 @@
 /.DS_Store
 /extrafiles/.DS_Store
 /__pycache__/snakeconfig.cpython-310.pyc
+/__pycache__/
+/__pycache__/snakeconfig.cpython-39.pyc

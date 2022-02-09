@@ -32,3 +32,9 @@ Copy and paste the following code into terminal to install
 ```shell
 curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/install.sh | bash
 ```
+
+## Windows
+Copy and paste the following code into the windows terminal to install
+```shell
+curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/wininstall.sh | bash
+```

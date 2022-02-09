@@ -1,3 +1,3 @@
 cd Desktop
-git clone https://github.com/AviationSFO/SnakeGame/tree/master
+git clone https://github.com/AviationSFO/SnakeGame/
 pip install playsound

@@ -98,3 +98,7 @@ Added snake preferences to prefs.json and modified configurator
 
 V1.10.3
 Cleaned up some things and added wininstall.sh
+
+V1.11.0
+check for python version compatibility
+Windows installation script and update Mac OS version

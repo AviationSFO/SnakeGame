@@ -10,6 +10,7 @@ import snakeconfig
 import threading as thr
 import json
 import platform as pf
+# checking if python version is compatible
 print(pf.python_version()); pyversion = pf.python_version();
 if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion:
     print("Python version check pass")
@@ -75,7 +76,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.10.3")
+wn.title("Snake Game Project v1.11.0")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)

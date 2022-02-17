@@ -284,7 +284,6 @@ wn.onkeypress(config, "9")
 wn.onkeypress(snakecolor, "8")
 wn.onkeypress(togglemute, "m")
 wn.onkeypress(togglemute, "M")
-
 segments = []
 prefs = {}
 

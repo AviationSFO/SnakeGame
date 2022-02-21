@@ -102,3 +102,10 @@ Cleaned up some things and added wininstall.sh
 V1.11.0
 check for python version compatibility
 Windows installation script and update Mac OS version
+
+V1.12.0
+Add window close on escape key
+Optimize startup process
+Fix devtoolreset
+Ability to toggle api as opposed to only able to be turned on
+Add smash sound when snake hits self

@@ -1,5 +1,6 @@
-# Python Snake Game by Steven Weinstein on 2-8-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 2-21-2022. Version available in version.txt
 # import required modules
+TK_SILENCE_DEPRECATION = 1
 print("Your python version is:")
 import turtle
 import time
@@ -9,15 +10,16 @@ import time
 import snakeconfig
 import threading as thr
 import json
-import platform as pf
+from platform import python_version
 # checking if python version is compatible
-print(pf.python_version()); pyversion = pf.python_version();
+print(python_version())
+pyversion = python_version()
 if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion or "3.11" in pyversion:
     print("Python version check pass")
 else:
-    print("^"*20)
-    print("Please upgrade your python to be version 3.6 or newer, terminating process")
     print("v"*20)
+    print("Please upgrade your python to be version 3.6 or newer, terminating process")
+    print("^"*20)
     quit()
 foodnum = 1
 global changedcolor
@@ -52,7 +54,6 @@ with open(os.path.expanduser(
     tailcolor = prefs["tailcolor"]
     headcolor = prefs["headcolor"]
 # defining important vars
-TK_SILENCE_DEPRECATION = 1
 error = False
 delay = 0.025
 movepertick = 5
@@ -76,7 +77,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.11.1")
+wn.title("Snake Game Project v1.12.0")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -164,7 +165,9 @@ def move():
 def DEVTOOLRESET():
     head.direction = "Stop"
     head.goto(0,0)
+    global high_score
     high_score = 0
+    global prefs
     prefs = {
         "highscore": 0,
     }
@@ -179,9 +182,12 @@ def colorconfig():
 def snakerecolor():
     snakeconfig.snakecolor()
 
-def APIactivate():
+def APItoggle():
     global APIon
-    APIon = True
+    if APIon:
+        APIon = False
+    elif not APIon:
+        APIon = True
 
 
 def APIproc():
@@ -202,14 +208,14 @@ def APIproc():
         datadoc.write(f"({round(APIdata[0], 2)})\n")
 
 def playswallow():
-    if noplaysound == False:
-        playsound("Desktop/SnakeGame/extrafiles/swallow.mp3")
+    if not noplaysound:
+        playsound(os.path.expanduser("~/Desktop/SnakeGame/extrafiles/swallow.mp3"))
 
 def togglemute():
     global mutesound
-    if mutesound == True:
+    if mutesound:
         mutesound = False
-    elif mutesound == False:
+    elif not mutesound:
         mutesound = True
 
 def config():
@@ -262,6 +268,9 @@ def snakecolor():
     changedcolor = True
     return
 
+def exit():
+    wn.bye()
+
 wn.listen()
 wn.onkeypress(goup, "w")
 wn.onkeypress(godown, "s")
@@ -279,11 +288,12 @@ wn.onkeypress(DEVTOOLRESET, "/")
 wn.onkeypress(DEVTOOLRESET, "r")
 wn.onkeypress(DEVTOOLRESET, "?")
 wn.onkeypress(DEVTOOLRESET, "R")
-wn.onkeypress(APIactivate, "0")
+wn.onkeypress(APItoggle, "0")
 wn.onkeypress(config, "9")
 wn.onkeypress(snakecolor, "8")
 wn.onkeypress(togglemute, "m")
 wn.onkeypress(togglemute, "M")
+wn.onkeypress(exit, "Escape")
 segments = []
 prefs = {}
 
@@ -375,7 +385,8 @@ while True:
     move()
     for segment in segments:
         if segment.distance(head) < movepertick:
-            head.direction = "Up"
+            if not noplaysound:
+                playsound(os.path.expanduser("~/Desktop/SnakeGame/extrafiles/smash.mp3"))
             head.goto(0,600)
             time.sleep(delay)
             time.sleep(1)

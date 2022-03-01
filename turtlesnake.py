@@ -14,7 +14,7 @@ from platform import python_version
 print("Your python version is:")
 print(python_version())
 pyversion = python_version()
-if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion or "3.11" in pyversion:
+if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion: #or "3.11" in pyversion:
     print("Python version check pass")
 else:
     print("v"*20)

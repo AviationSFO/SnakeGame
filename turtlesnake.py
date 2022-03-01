@@ -1,7 +1,6 @@
 # Python Snake Game by Steven Weinstein on 2-21-2022. Version available in version.txt
 # import required modules
 TK_SILENCE_DEPRECATION = 1
-print("Your python version is:")
 import turtle
 import time
 import random
@@ -12,6 +11,7 @@ import threading as thr
 import json
 from platform import python_version
 # checking if python version is compatible
+print("Your python version is:")
 print(python_version())
 pyversion = python_version()
 if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion or "3.11" in pyversion:

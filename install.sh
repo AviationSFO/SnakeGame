@@ -1,7 +1,7 @@
 cd ~/Desktop
 git clone https://github.com/AviationSFO/SnakeGame
 cd SnakeGame
-if [ python -V -eq 2.7.16 ]
+if [ python -V = Python 2.7.16 ]
 then
     python3 -m pip install playsound
     python3 -m pip install PyObjC
@@ -10,7 +10,7 @@ else
     python -m pip install PyObjC
 fi
 echo "Your python version is:"
-if [ python -V -eq 2.7.16 ]
+if [ python -V = Python 2.7.16 ]
 then
     python3 -V
 else

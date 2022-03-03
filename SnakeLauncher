@@ -1,7 +1,2 @@
 #!/bin/sh
-
-if [ python -V = Python 2.7.16 ]; then
-    python3 ~/Desktop/SnakeGame/turtlesnake.py
-else
-    python ~/Desktop/SnakeGame/turtlesnake.py
-fi
+python3 ~/Desktop/SnakeGame/turtlesnake.py

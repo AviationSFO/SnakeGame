@@ -1,20 +1,26 @@
-# Python Snake Game by Steven Weinstein on 2-21-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 3-10-2022. Version available in version.txt
 # import required modules
 TK_SILENCE_DEPRECATION = 1
-import turtle
-import time
-import random
-import os
-import time
-import snakeconfig
-import threading as thr
-import json
 from platform import python_version
+import json
+import threading as thr
+import snakeconfig
+from os import path
+from random import randint, choice
+from time import sleep
+import turtle
 # checking if python version is compatible
-print("Your python version is:")
-print(python_version())
 pyversion = python_version()
-if "3.6" in pyversion or "3.7" in pyversion or "3.8" in pyversion or "3.9" in pyversion or "3.10" in pyversion: #or "3.11" in pyversion:
+print("Your python version is:")
+print(pyversion)
+if (
+    "3.6" in pyversion or
+    "3.7" in pyversion or
+    "3.8" in pyversion or
+    "3.9" in pyversion or
+    "3.10" in pyversion  # or
+    # "3.11" in pyversion:
+):
     print("Python version check pass")
 else:
     print("v"*20)
@@ -42,8 +48,8 @@ except:
     noplaysound = True
 global high_score
 global mutesound
-with open(os.path.expanduser(
-    "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
+with open(path.expanduser(
+        "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
     prefs = json.load(read_file)
     high_score = prefs["highscore"]
     bgcolor = prefs["bgcolor"]
@@ -60,7 +66,7 @@ movepertick = 5
 score = 0
 APIon = False
 # opening files
-datadoc = open(os.path.expanduser(
+datadoc = open(path.expanduser(
     "~/Desktop/SnakeGame/data.txt"), "a")
 foodnum = int(foodnum)
 
@@ -77,7 +83,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.12.0")
+wn.title("Snake Game Project v1.13.0")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -124,10 +130,12 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 250)
-pen.write(f"Score : 0  High Score : {high_score}", align="center",
+pen.write(f"Score: 0  High Score: {high_score}", align="center",
           font=("candara", 24, "bold"))
 
 # assigning key directions
+
+
 def goup():
     if head.direction != "down":
         head.direction = "up"
@@ -162,81 +170,85 @@ def move():
         x = head.xcor()
         head.setx(x+movepertick)
 
+
 def DEVTOOLRESET():
     head.direction = "Stop"
-    head.goto(0,0)
+    head.goto(0, 0)
     global high_score
     high_score = 0
     global prefs
     prefs = {
         "highscore": 0,
     }
-    with open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(path.expanduser(
+            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     quit()
+
 
 def colorconfig():
     snakeconfig.config()
 
+
 def snakerecolor():
     snakeconfig.snakecolor()
+
 
 def APItoggle():
     global APIon
     if APIon:
         APIon = False
-    elif not APIon:
+    else:
         APIon = True
 
 
 def APIproc():
     dist1 = head.distance(food)
-    if foodnum == 2:
-        dist2 = head.distance(food2)
     APIdata[0] = dist1
     if foodnum == 2:
+        dist2 = head.distance(food2)
         print(APIdata)
         APIdata[1] = dist2
         try:
             APIdata[2] = (int(APIdata[0]) + int(APIdata[1]))/2
         except IndexError:
             APIdata.append((int(APIdata[0]) + int(APIdata[1]))/2)
-    if foodnum == 2:
-        datadoc.write(f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)}),({round(APIdata[2], 3)})\n")
+        datadoc.write(
+            f"({round(APIdata[0], 2)}),({round(APIdata[1], 2)}),({round(APIdata[2], 3)})\n")
     elif foodnum == 1:
         datadoc.write(f"({round(APIdata[0], 2)})\n")
 
+
 def playswallow():
     if not noplaysound:
-        playsound(os.path.expanduser("~/Desktop/SnakeGame/extrafiles/swallow.mp3"))
+        playsound(path.expanduser("~/Desktop/SnakeGame/extrafiles/swallow.mp3"))
+
 
 def togglemute():
     global mutesound
     if mutesound:
         mutesound = False
-    elif not mutesound:
+    else:
         mutesound = True
 
+
 def config():
-    import os
-    import json
     prefs = {
-    "highscore": 0,
-    "bgcolor": "dark green",
-    "foodcolor": "navy",
-    "foodshape": "square",
-    "foodnum": 2,
-    "mutesound": True
-}
+        "highscore": 0,
+        "bgcolor": "dark green",
+        "foodcolor": "navy",
+        "foodshape": "square",
+        "foodnum": 2,
+        "mutesound": True
+    }
     print('''Color Configurator
       enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
     prefs["bgcolor"] = input("What color would you like the background: ")
     prefs["foodcolor"] = input("What color would you like the food: ")
     prefs["foodshape"] = input("Food shape: circle square triange or turtle: ")
     prefs["foodnum"] = input("Would you like to have 1 or 2 foods: ")
-    with open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(path.expanduser(
+            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     # writing to text document
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
@@ -244,23 +256,22 @@ def config():
     changedcolor = True
     return
 
+
 def snakecolor():
-    import os
-    import json
     prefs = {
-    "highscore": 0,
-    "bgcolor": "dark green",
-    "foodcolor": "navy",
-    "foodshape": "square",
-    "foodnum": 2,
-    "mutesound": True
+        "highscore": 0,
+        "bgcolor": "dark green",
+        "foodcolor": "navy",
+        "foodshape": "square",
+        "foodnum": 2,
+        "mutesound": True
     }
     print('''Color Configurator
       enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
     prefs["headcolor"] = input("What color would you like the snake head: ")
     prefs["tailcolor"] = input("What color would you like the snake tail: ")
-    with open(os.path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(path.expanduser(
+            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     # writing to text document
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
@@ -268,8 +279,10 @@ def snakecolor():
     changedcolor = True
     return
 
+
 def exit():
     wn.bye()
+
 
 wn.listen()
 wn.onkeypress(goup, "w")
@@ -301,7 +314,7 @@ prefs = {}
 while True:
     wn.update()
     if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
-        time.sleep(1)
+        sleep(1)
         head.goto(0, 0)
         head.direction = "Stop"
         for segment in segments:
@@ -310,11 +323,11 @@ while True:
         score = 0
         delay = 0.025
         pen.clear()
-        pen.write(f"Score : {score} High Score : {high_score} ",
+        pen.write(f"Score: {score} High Score: {high_score} ",
                   align="center", font=("candara", 24, "bold"))
     if head.distance(food) < 20:
-        x = round(random.randint(-270, 270), 24)
-        y = round(random.randint(-270, 270), 24)
+        x = round(randint(-270, 270), 24)
+        y = round(randint(-270, 270), 24)
         if mutesound == False:
             if __name__ == '__main__':
                 # creating thread
@@ -340,19 +353,19 @@ while True:
             if score > int(high_score):
                 high_score = score
         pen.clear()
-        pen.write("Score : {} High Score : {} ".format(
+        pen.write("Score: {} High Score: {} ".format(
             score, high_score), align="center", font=("candara", 24, "bold"))
     if foodnum == 2:
         if head.distance(food2) < 20:
-            x2 = round(random.randint(-270, 270), 24)
-            y2 = round(random.randint(-270, 270), 24)
+            x2 = round(randint(-270, 270), 24)
+            y2 = round(randint(-270, 270), 24)
             if mutesound == False:
                 if __name__ == '__main__':
                     # creating thread
                     soundt = thr.Thread(target=playswallow, args=())
                     soundt.start()
             food2.goto(x2, y2)
-        
+
             # Adding segment
             new_segment = turtle.Turtle()
             new_segment.speed(0)
@@ -371,7 +384,7 @@ while True:
                 if score > int(high_score):
                     high_score = score
             pen.clear()
-            pen.write("Score : {} High Score : {} ".format(
+            pen.write("Score: {} High Score: {} ".format(
                 score, high_score), align="center", font=("candara", 24, "bold"))
     # Checking for head collisions with body segments
     for index in range(len(segments)-1, 0, -1):
@@ -386,14 +399,15 @@ while True:
     for segment in segments:
         if segment.distance(head) < movepertick:
             if not noplaysound:
-                playsound(os.path.expanduser("~/Desktop/SnakeGame/extrafiles/smash.mp3"))
-            head.goto(0,600)
-            time.sleep(delay)
-            time.sleep(1)
+                playsound(path.expanduser(
+                    "~/Desktop/SnakeGame/extrafiles/smash.mp3"))
+            head.goto(0, 600)
+            sleep(delay)
+            sleep(1)
             head.goto(0, 0)
             head.direction = "Stop"
-            colors = random.choice(['red', 'blue', 'green'])
-            shapes = random.choice(['square', 'circle'])
+            colors = choice(['red', 'blue', 'green'])
+            shapes = choice(['square', 'circle'])
             for segment in segments:
                 segment.goto(1000, 1000)
             segments = []
@@ -401,14 +415,15 @@ while True:
             score = 0
             delay = 0.025
             pen.clear()
-            pen.write("Score : {} High Score : {} ".format(
-                score, high_score), align="center", font=("candara", 24, "bold"))
+            pen.write(f"Score: {score} High Score: {high_score} ",
+                      align="center", font=("candara", 24, "bold"))
 
     if APIon == True:
         if __name__ == "__main__":
             # creating thread
             t1 = thr.Thread(target=APIproc, args=())
             t1.start()
+
     prefs = {
         "highscore": high_score,
         "bgcolor": bgcolor,
@@ -418,15 +433,13 @@ while True:
         "mutesound": mutesound,
         "headcolor": headcolor,
         "tailcolor": tailcolor
-}
+    }
+
     if changedcolor == False:
-        with open(os.path.expanduser(
-            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        with open(path.expanduser(
+                "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
             json.dump(prefs, write_file)
     else:
         quit()
 
-    time.sleep(delay)
-
-# I honeslty have no idea what this line does or why I added it but it seems to break the program if I remove it, so it is here to stay.
-wn.mainloop()
+    sleep(delay)

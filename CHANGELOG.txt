@@ -109,3 +109,5 @@ Optimize startup process
 Fix devtoolreset
 Ability to toggle api as opposed to only able to be turned on
 Add smash sound when snake hits self
+
+THIS DOCUMENT IS NO LONGER USED AS OF 1.13.0, REFER TO GITHUB FOR CHANGELOG

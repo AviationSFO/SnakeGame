@@ -1,8 +1,20 @@
 # Is it possible to have install script clone from latest version rather than the latest commit?
 
 cd ~/Desktop
-git clone https://github.com/AviationSFO/SnakeGame/releases/latest
+git clone https://github.com/AviationSFO/SnakeGame
+
+# Go into repo folder
 cd SnakeGame
+
+# Get new tags from the remote
+git fetch --tags
+
+# Get the latest tag name, assign it to a variable
+latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+
+# Checkout the latest tag
+git checkout $latestTag
+
 if [ python -V = "Python 2.7.16" ]
 then
     python3 -m pip install playsound

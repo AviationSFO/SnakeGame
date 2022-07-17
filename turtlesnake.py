@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 3-10-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 7-17-2022. Version available in version.txt
 # import required modules
 TK_SILENCE_DEPRECATION = 1
 from platform import python_version
@@ -81,7 +81,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project DEVELOPMENT")
+wn.title("Snake Game Project v1.13.1")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)

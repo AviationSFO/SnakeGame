@@ -1,4 +1,4 @@
-# Python Snake Game by Steven Weinstein on 3-10-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 7-17-2022. Version available in version.txt
 # import required modules
 TK_SILENCE_DEPRECATION = 1
 from platform import python_version
@@ -48,8 +48,7 @@ except:
     noplaysound = True
 global high_score
 global mutesound
-with open(path.expanduser(
-        "~/Desktop/SnakeGame/prefs.json"), "r") as read_file:
+with open("prefs.json", "r") as read_file:
     prefs = json.load(read_file)
     high_score = prefs["highscore"]
     bgcolor = prefs["bgcolor"]
@@ -66,8 +65,7 @@ movepertick = 5
 score = 0
 APIon = False
 # opening files
-datadoc = open(path.expanduser(
-    "~/Desktop/SnakeGame/data.txt"), "a")
+datadoc = open("data.txt", "a")
 foodnum = int(foodnum)
 
 if foodnum == 2:
@@ -83,7 +81,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.13.0")
+wn.title("Snake Game Project v1.13.1")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -436,8 +434,7 @@ while True:
     }
 
     if changedcolor == False:
-        with open(path.expanduser(
-                "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+        with open("prefs.json", "w") as write_file:
             json.dump(prefs, write_file)
     else:
         quit()

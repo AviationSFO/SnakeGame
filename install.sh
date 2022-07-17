@@ -1,5 +1,5 @@
 # Is it possible to have install script clone from latest version rather than the latest commit?
-
+# !!!!MACOS ONLY!!!!
 cd ~/Desktop
 git clone https://github.com/AviationSFO/SnakeGame
 

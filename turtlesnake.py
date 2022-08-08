@@ -1,14 +1,15 @@
-# Python Snake Game by Steven Weinstein on 7-17-2022. Version available in version.txt
+# Python Snake Game by Steven Weinstein on 8-8-2022. Version available in version.txt
 # import required modules
 TK_SILENCE_DEPRECATION = 1
 from platform import python_version
 import json
 import threading as thr
 import snakeconfig
-from os import path
 from random import randint, choice
 from time import sleep
 import turtle
+from pathlib import Path
+script_path = Path(__file__, '..').resolve()
 # checking if python version is compatible
 pyversion = python_version()
 print("Your python version is:")
@@ -42,13 +43,14 @@ prefs = {
     "tailcolor": "blue"
 }
 try:
-    from playsound import playsound
+    from pygame import mixer
     noplaysound = False
+    mixer.init()
 except:
     noplaysound = True
 global high_score
 global mutesound
-with open("prefs.json", "r") as read_file:
+with open(script_path.joinpath("prefs.json"), "r") as read_file:
     prefs = json.load(read_file)
     high_score = prefs["highscore"]
     bgcolor = prefs["bgcolor"]
@@ -65,7 +67,7 @@ movepertick = 5
 score = 0
 APIon = False
 # opening files
-datadoc = open("data.txt", "a")
+datadoc = open(script_path.joinpath("data.txt"), "a")
 foodnum = int(foodnum)
 
 if foodnum == 2:
@@ -81,7 +83,7 @@ except ValueError:
     print("Error: last highscore is not an integer.")
 
 wn = turtle.Screen()
-wn.title("Snake Game Project v1.13.1")
+wn.title("Snake Game Project v1.14.0")
 wn.bgcolor(bgcolor)
 # the width and height can be put as user's choice
 wn.setup(width=600, height=600)
@@ -178,8 +180,7 @@ def DEVTOOLRESET():
     prefs = {
         "highscore": 0,
     }
-    with open(path.expanduser(
-            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(script_path.joinpath("prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     quit()
 
@@ -219,7 +220,14 @@ def APIproc():
 
 def playswallow():
     if not noplaysound:
-        playsound(path.expanduser("~/Desktop/SnakeGame/extrafiles/swallow.mp3"))
+        mixer.music.load(script_path.joinpath("extrafiles/swallow.mp3"))
+        mixer.music.play()
+
+
+def playsmash():
+    if not noplaysound:
+        mixer.music.load(script_path.joinpath("extrafiles/smash.mp3"))
+        mixer.music.play()
 
 
 def togglemute():
@@ -245,8 +253,7 @@ def config():
     prefs["foodcolor"] = input("What color would you like the food: ")
     prefs["foodshape"] = input("Food shape: circle square triange or turtle: ")
     prefs["foodnum"] = input("Would you like to have 1 or 2 foods: ")
-    with open(path.expanduser(
-            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(script_path.joinpath("prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     # writing to text document
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
@@ -268,8 +275,7 @@ def snakecolor():
       enter a hex code or an accepted color name from this list: https://trinket.io/docs/colors NO RGB VALUES''')
     prefs["headcolor"] = input("What color would you like the snake head: ")
     prefs["tailcolor"] = input("What color would you like the snake tail: ")
-    with open(path.expanduser(
-            "~/Desktop/SnakeGame/prefs.json"), "w") as write_file:
+    with open(script_path.joinpath("prefs.json"), "w") as write_file:
         json.dump(prefs, write_file)
     # writing to text document
     print("Succesfuly configured!\nYou will have to restart the game for changes to take effect.")
@@ -312,6 +318,8 @@ prefs = {}
 while True:
     wn.update()
     if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
+        if not mutesound:
+            playsmash()
         sleep(1)
         head.goto(0, 0)
         head.direction = "Stop"
@@ -358,10 +366,7 @@ while True:
             x2 = round(randint(-270, 270), 24)
             y2 = round(randint(-270, 270), 24)
             if mutesound == False:
-                if __name__ == '__main__':
-                    # creating thread
-                    soundt = thr.Thread(target=playswallow, args=())
-                    soundt.start()
+                playswallow()
             food2.goto(x2, y2)
 
             # Adding segment
@@ -396,9 +401,8 @@ while True:
     move()
     for segment in segments:
         if segment.distance(head) < movepertick:
-            if not noplaysound:
-                playsound(path.expanduser(
-                    "~/Desktop/SnakeGame/extrafiles/smash.mp3"))
+            if mutesound == False:
+                playsmash()
             head.goto(0, 600)
             sleep(delay)
             sleep(1)
@@ -434,7 +438,7 @@ while True:
     }
 
     if changedcolor == False:
-        with open("prefs.json", "w") as write_file:
+        with open(script_path.joinpath("prefs.json"), "w") as write_file:
             json.dump(prefs, write_file)
     else:
         quit()

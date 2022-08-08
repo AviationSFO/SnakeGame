@@ -27,7 +27,7 @@ Tested on Mac OS and Windows 10 and 11 only.
 To run game:
 MACOS: Open launcher
 
-Windows: Open turtlesnake.py with python
+Windows: Open launch-win.exe
 
 ### Configuring prefrences
 

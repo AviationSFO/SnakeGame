@@ -348,7 +348,7 @@ while True:
         try:
             new_segment.color(tailcolor)
         except:
-            snakeconfig.snakereset()
+            snakeconfig.snakereset(script_path)
             quit()
         new_segment.penup()
         segments.append(new_segment)

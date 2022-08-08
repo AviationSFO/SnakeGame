@@ -19,8 +19,8 @@ if (
     "3.7" in pyversion or
     "3.8" in pyversion or
     "3.9" in pyversion or
-    "3.10" in pyversion  # or
-    # "3.11" in pyversion:
+    "3.10" in pyversion  or
+    "3.11" in pyversion
 ):
     print("Python version check pass")
 else:

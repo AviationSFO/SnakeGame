@@ -1,4 +1,4 @@
-#Turtle Snake Game color and shape congigurator for 1.10.1 and newer on 2-8-2022 By Steven Weinstein
+#Turtle Snake Game color and shape congigurator for 2.0.0 and newer on 8-8-2022 By Steven Weinstein
 
 
 def config(script_path):

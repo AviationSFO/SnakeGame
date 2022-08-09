@@ -1,4 +1,4 @@
-# Snake Game
+# Snake Game v2
 ## Instructions
 ### Requirements
 #### Python

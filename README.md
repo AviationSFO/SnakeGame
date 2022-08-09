@@ -49,7 +49,4 @@ curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/install.sh |
 ```
 
 ## Windows
-Copy and paste the following code into the windows terminal to install
-```shell
-curl https://raw.githubusercontent.com/AviationSFO/SnakeGame/master/wininstall.sh | bash
-```
+Download source code from latest release
